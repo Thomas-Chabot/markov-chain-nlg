@@ -33,7 +33,7 @@ class Backoff {
         this._update (seq, options);
         continue;
       }
-      
+
       if (Seq.length (seq) <= minLen)
         break;
 
