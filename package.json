@@ -1,0 +1,25 @@
+{
+  "name": "markov-chain-nlg",
+  "version": "1.0.0",
+  "description": "a simple markov chain algorithm, with backoff, for generating text",
+  "main": "main.js",
+  "dependencies": {
+    "JSONStream": "^1.3.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node --expose-gc server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markov",
+    "chain",
+    "natural",
+    "language",
+    "generation",
+    "backoff"
+  ],
+  "author": "sean hodges",
+  "license": "ISC"
+}
