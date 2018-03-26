@@ -18,9 +18,10 @@ The code can be required by using require('markov-chain-mlg'). From there, any o
 
   Arguments:
 
-    data: The data to train the generator on. More data will provide more accurate results.
+  data: The data to train the generator on. More data will provide more accurate results.
 
-    shouldBackoff: A flag to determine if the generator should perform a backing off process or not. See BACKING OFF, which will be described in detail later.
+  shouldBackoff: A flag to determine if the generator should perform a backing off process or not. See BACKING OFF, which will be described
+  in detail later.
 
   Returns: None; work will be done in the chain's data.
 
@@ -31,9 +32,9 @@ The code can be required by using require('markov-chain-mlg'). From there, any o
 
   Arguments:
 
-    filepath: A path to the file to use for training.
+  filepath: A path to the file to use for training.
 
-    split: A character/characters to split the file data on. Defaults to '\n'
+  split: A character/characters to split the file data on. Defaults to '\n'
 
   Returns: None; work will be done in the chain's data.
 
@@ -44,7 +45,7 @@ The code can be required by using require('markov-chain-mlg'). From there, any o
 
   Arguments:
 
-    maxLength: The maximum number of words to be generated. This is an upper bound & the result may be shorter than this.
+  maxLength: The maximum number of words to be generated. This is an upper bound & the result may be shorter than this.
 
   Returns: A string representing the sequence of words that was generated.
 
