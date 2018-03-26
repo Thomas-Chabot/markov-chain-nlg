@@ -15,13 +15,6 @@ const FILE_PATH = "./data/instantVideoReviews.json"
 
 var startWords;
 
-try {
-  global.gc();
-} catch (e) {
-  console.log("You must run program with 'node --expose-gc index.js' or 'npm start'");
-  process.exit();
-}
-
 Chain.init ({minOpts: MIN_OPTS});
 
 function doTraining (data) {
@@ -31,9 +24,11 @@ function doTraining (data) {
   if (data.length === 1 && Array.isArray (data [0])) data = data [0];
 
   for (var review of data) {
+    if (review === '') continue;
     let training = new Training (review, K);
     startingWords.push (training.train ());
   }
+
   return startingWords;
 }
 
@@ -43,9 +38,9 @@ function doBackoff () {
   backoff.apply (MIN_BACKOFF);
 }
 
-function generate() {
+function generate(maxLen) {
   var gen = new Generator (K, startWords);
-  return gen.generate ();
+  return gen.generate (maxLen);
 }
 
 function train (data, shouldBackoff) {
@@ -59,22 +54,24 @@ function train (data, shouldBackoff) {
 }
 
 function trainTxt (txtFile, split) {
+  if (!txtFile) return false;
+
   if (!split) split = "\n";
   return new Promise ((fulfill, reject) => {
     File.read (txtFile).then ((data) => {
-      train (data.split (split));
+      data = data.replace(/\r/g, "");
+      train (data.split (split), true);
       fulfill ();
     }, reject);
   });
 }
 
 function trainJson (filePath, doBackoff) {
-  var parsing = filePath ? null : 'reviewText';
-  filePath = filePath || FILE_PATH;
+  if (!filePath) return false;
 
   return new Promise ((fulfill, reject) => {
     try{
-      File.readJSON(filePath, parsing).then ((data) => {
+      File.readJSON(filePath).then ((data) => {
         train (data, doBackoff);
         fulfill();
       }, reject);
@@ -85,8 +82,9 @@ function trainJson (filePath, doBackoff) {
 }
 
 function run () {
-  init().then (()=>{
+  trainTxt("data/words.txt").then (()=>{
     var result = generate (250);
+    console.log ("Generated: ", result);
   }, (err) => {
     console.error (err.stack || err)
   });

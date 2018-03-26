@@ -16,7 +16,6 @@ class Backoff {
   _doApply (keys, minLen) {
     var needsUpdate = true;
     while (needsUpdate) {
-      global.gc ();
       [keys, needsUpdate] = this._shorten (keys, minLen);
 
       Log.msg ("Continuing to next apply level");

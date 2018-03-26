@@ -15,17 +15,18 @@ class Generator {
   }
 
   generate (maxLength) {
-    if (!maxLength) maxLength = 250;
+    if (typeof (maxLength) !== 'number') maxLength = 250;
 
     var result = "";
     var i = 0;
 
     var word = Arr.random (this._startWords);
     while (true) {
+      if (i >= maxLength) break;
       result += word + Seq.separator;
 
       // end case: end at the end of the sentence with 50/50 probability
-      if ((word && word.endsWith(".") && Random.between (1, 2) === 1) || (i > maxLength))
+      if ((word && word.endsWith(".") && Random.between (1, 2) === 1))
         break;
 
       // other end case: if we're stuck in a loop, just exit
@@ -41,6 +42,7 @@ class Generator {
       i++;
     }
 
+    console.log (result);
     return result;
   }
 
