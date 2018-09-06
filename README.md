@@ -64,7 +64,9 @@ console.log (MarkovChain.generate (10));
 
 ```javascript
 const MarkovChain = require('markov-chain-nlg');
-MarkovChain.trainTxt ("some-path/some-text-file.txt", "\n");
-MarkovChain.trainTxt ("some-path/some-other-text-file.txt", "\n");
-console.log (MarkovChain.generate (150));
+MarkovChain.trainTxt ("some-path/some-text-file.txt", "\n").then (() => {
+  MarkovChain.trainTxt ("some-path/some-other-text-file.txt", "\n").then (() => {
+    console.log (MarkovChain.generate (150));
+  });
+});
 ```
