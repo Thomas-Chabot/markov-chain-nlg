@@ -42,7 +42,7 @@ class Generator {
       i++;
     }
 
-    console.log (result);
+    //console.log (result);
     return result;
   }
 
